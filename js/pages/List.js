@@ -12,6 +12,8 @@ const roleIconMap = {
     helper: "user-shield",
     dev: "code",
     trial: "user-lock",
+    "owner / dev": "crown",
+    editor: "video",
 };
 
 export default {
