@@ -110,7 +110,7 @@ export default {
                             </li>
                         </ol>
                     </template>
-                    <h3>Lea las reglas para entender que necesitas para ser aprobado en la lista</h3>
+                    <h3>Lea las reglas para saber qué necesitás para que tu récord sea aceptado</h3>
                     <p><h5>
                     <a href="https://docs.google.com/document/d/1jHpHcVuKuwZXBaCj7x7Gv1lGnyp1wfi7HJXLhwLOe5g/edit?usp=sharing" target="_blank">Click aquí para las reglas</a>
                     </h5><p>
