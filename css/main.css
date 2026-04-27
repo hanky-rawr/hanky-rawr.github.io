@@ -13,8 +13,7 @@
 main.dark,
 header.dark {
     color-scheme: dark;
-    /* VARIABLES ACTUALIZADAS A AZUL OSCURO CON TRANSPARENCIA PARA LOS PANELES LATERALES */
-    --color-background: rgba(13, 17, 23, 0.85); 
+    /* VARIABLES DE TEXTO Y COLORES PRIMARIOS */
     --color-on-background: #c9d1d9;
     --color-background-hover: rgba(33, 38, 45, 0.9);
     --color-on-background-hover: #ffffff;
@@ -41,7 +40,7 @@ body {
     margin: 0;
     background-color: #000; 
     
-    /* CONFIGURACIÓN DEL FONDO ESTÁTICO DE GEOMETRY DASH */
+    /* FONDO ESTÁTICO DE GEOMETRY DASH */
     background-image: url('../assets/bg_gd.png'); 
     background-attachment: fixed;
     background-position: center;
@@ -103,17 +102,18 @@ main {
     padding-top: 6rem;
 }
 
-/* PANELES LATERALES CON TRANSPARENCIA */
+/* --- PANELES LATERALES CON TU DEGRADADO AZUL --- */
 main > div {
-    background-color: var(--color-background);
+    /* El degradado que pediste: azul oscuro a celeste */
+    background: linear-gradient(180deg, #001d4a 0%, #0055d7 100%) !important;
     backdrop-filter: blur(5px); 
     border-radius: 12px;
     margin-bottom: 1rem;
     overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
 }
 
 main > div:first-child {
-    background: linear-gradient(180deg, rgba(33, 38, 45, 0.8) 0%, rgba(13, 17, 23, 0.9) 100%);
     margin-left: 2rem;
 }
 
@@ -121,14 +121,15 @@ main > div:last-child {
     margin-right: 2rem;
 }
 
-/* --- CAMBIO: PANEL CENTRAL FULL TRANSPARENTE --- */
+/* --- PANEL CENTRAL FULL TRANSPARENTE --- */
 main > div:nth-child(2) {
-    background-color: transparent !important;
+    background: transparent !important;
     backdrop-filter: none !important;
     box-shadow: none !important;
+    border: none !important;
 }
 
-/* Sombra para que los textos del nivel se lean bien sobre el fondo azul */
+/* Sombra de texto para legibilidad */
 main > div:nth-child(2) h1,
 main > div:nth-child(2) h2,
 main > div:nth-child(2) p,
@@ -141,7 +142,7 @@ main > div:nth-child(2) .type-title-sm {
     background-color: transparent !important;
 }
 
-/* Quita el fondo de los botones de la lista de niveles (izquierda) */
+/* Ajuste para los botones de la lista de niveles */
 main > div:first-child button, 
 main > div:first-child .level-row {
     background-color: transparent !important;
@@ -149,5 +150,5 @@ main > div:first-child .level-row {
 }
 
 main > div:first-child button:hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
