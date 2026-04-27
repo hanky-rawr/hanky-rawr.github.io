@@ -46,9 +46,6 @@ body {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-
-    /* CURSOR PERSONALIZADO WAVE */
-    cursor: url('../assets/wave_cursor01.png'), auto;
 }
 
 ::-webkit-scrollbar {
@@ -105,14 +102,15 @@ main {
     padding-top: 6rem;
 }
 
-/* --- PANELES LATERALES CON DEGRADADO --- */
+/* --- PANELES LATERALES CON DEGRADADO INVERTIDO --- */
 main > div {
+    /* Corregido: de azul claro (#0055d7) a oscuro (#001d4a) */
     background: linear-gradient(180deg, #0055d7 0%, #001d4a 100%) !important;
     backdrop-filter: blur(5px); 
     border-radius: 12px;
     margin-bottom: 1rem;
     overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde un pelín más visible */
 }
 
 main > div:first-child {
@@ -131,7 +129,7 @@ main > div:nth-child(2) {
     border: none !important;
 }
 
-/* Sombra de texto para legibilidad */
+/* Sombra de texto para legibilidad sobre el fondo de GD */
 main > div:nth-child(2) h1,
 main > div:nth-child(2) h2,
 main > div:nth-child(2) p,
@@ -144,7 +142,7 @@ main > div:nth-child(2) .type-title-sm {
     background-color: transparent !important;
 }
 
-/* Botones y niveles de la lista */
+/* Botones de la lista a la izquierda */
 main > div:first-child button, 
 main > div:first-child .level-row {
     background-color: transparent !important;
@@ -153,9 +151,4 @@ main > div:first-child .level-row {
 
 main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* --- MANTENER EL WAVE EN ELEMENTOS CLICKEABLES --- */
-a, button, .level-row, .nav__tab, .nav__cta, .nav__icon {
-    cursor: url('../assets/wave_cursor01.png'), pointer !important;
 }
