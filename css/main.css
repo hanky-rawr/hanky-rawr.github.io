@@ -13,8 +13,8 @@
 main.dark,
 header.dark {
     color-scheme: dark;
-    /* VARIABLES ACTUALIZADAS A AZUL OSCURO CON TRANSPARENCIA */
-    --color-background: rgba(13, 17, 23, 0.85); /* Un poco de transparencia para ver el fondo */
+    /* VARIABLES ACTUALIZADAS A AZUL OSCURO CON TRANSPARENCIA PARA LOS PANELES LATERALES */
+    --color-background: rgba(13, 17, 23, 0.85); 
     --color-on-background: #c9d1d9;
     --color-background-hover: rgba(33, 38, 45, 0.9);
     --color-on-background-hover: #ffffff;
@@ -39,10 +39,10 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    background-color: #000; /* Color de respaldo */
+    background-color: #000; 
     
-    /* CONFIGURACIÓN DEL FONDO ESTÁTICO */
-    background-image: url('../assets/bg_gd.png'); /* Asegúrate de que la imagen esté en la carpeta assets */
+    /* CONFIGURACIÓN DEL FONDO ESTÁTICO DE GEOMETRY DASH */
+    background-image: url('../assets/bg_gd.png'); 
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -57,7 +57,7 @@ body {
 
 header,
 main {
-    background-color: transparent; /* Quitamos el fondo sólido para ver la imagen */
+    background-color: transparent; 
     color: var(--color-on-background);
     display: grid;
     grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(16em, 1fr);
@@ -100,13 +100,13 @@ main {
     display: grid;
     grid-template-rows: minmax(0, 1fr);
     column-gap: 2rem;
-    padding-top: 6rem; /* Espacio para que el header no tape la lista */
+    padding-top: 6rem;
 }
 
-/* PANELES CON TRANSPARENCIA */
+/* PANELES LATERALES CON TRANSPARENCIA */
 main > div {
     background-color: var(--color-background);
-    backdrop-filter: blur(5px); /* Efecto de desenfoque opcional muy pro */
+    backdrop-filter: blur(5px); 
     border-radius: 12px;
     margin-bottom: 1rem;
     overflow-y: auto;
@@ -121,7 +121,27 @@ main > div:last-child {
     margin-right: 2rem;
 }
 
-/* Esto quita el fondo de los recuadros de los nombres de la izquierda */
+/* --- CAMBIO: PANEL CENTRAL FULL TRANSPARENTE --- */
+main > div:nth-child(2) {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+/* Sombra para que los textos del nivel se lean bien sobre el fondo azul */
+main > div:nth-child(2) h1,
+main > div:nth-child(2) h2,
+main > div:nth-child(2) p,
+main > div:nth-child(2) .type-title-sm {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Tablas de récords transparentes */
+.records, .record {
+    background-color: transparent !important;
+}
+
+/* Quita el fondo de los botones de la lista de niveles (izquierda) */
 main > div:first-child button, 
 main > div:first-child .level-row {
     background-color: transparent !important;
