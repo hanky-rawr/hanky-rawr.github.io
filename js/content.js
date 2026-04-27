@@ -3,7 +3,7 @@ import { round, score } from './score.js';
 /**
  * Path to directory containing `_list.json` and all levels
  */
-const dir = 'https://hanky-rawr.github.io/data';
+const dir = 'https://proyecto-skl.github.io/data';
 
 export async function fetchMapPacks() {
     try {
