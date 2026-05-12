@@ -1,54 +1,13 @@
 import { round, score } from './score.js';
 
-/**
- * Path to directory containing `_list.json` and all levels
- */
 const dir = 'https://proyecto-skl.github.io/data';
+const challengesDir = 'https://proyecto-skl.github.io/data/datachallenges';
 
 export async function fetchMapPacks() {
     try {
         const mapPacksResults = await fetch(`${dir}/_mappacks.json`);
-        const mapPacks = await mapPacksResults.json();
-        return mapPacks;
+        return await mapPacksResults.json();
     } catch {
-        return null;
-    }
-}
-
-export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
-    try {
-        const list = await listResult.json();
-        const mapPacks = await fetchMapPacks() || {};
-        
-        return await Promise.all(
-            list.map(async (path, rank) => {
-                const levelResult = await fetch(`${dir}/${path}.json`);
-                try {
-                    const level = await levelResult.json();
-                    if (level.mapPack && mapPacks[level.mapPack]) {
-                        const packInfo = mapPacks[level.mapPack];
-                        level.mapPackPrettyName = packInfo.prettyName;
-                        level.mapPackColor = packInfo.color;
-                    }
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort(
-                                (a, b) => b.percent - a.percent,
-                            ),
-                        },
-                        null,
-                    ];
-                } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return [null, path];
-                }
-            }),
-        );
-    } catch {
-        console.error(`Failed to load list.`);
         return null;
     }
 }
@@ -56,86 +15,107 @@ export async function fetchList() {
 export async function fetchEditors() {
     try {
         const editorsResults = await fetch(`${dir}/_editors.json`);
-        const editors = await editorsResults.json();
-        return editors;
+        return await editorsResults.json();
     } catch {
+        return null;
+    }
+}
+
+// LISTA PRINCIPAL (Carpeta /data)
+export async function fetchList() {
+    return await fetchAnyList(dir);
+}
+
+// CHALLENGES (Carpeta /data/datachallenges)
+export async function fetchChallengesList() {
+    return await fetchAnyList(challengesDir);
+}
+
+// Función maestra corregida para que cada lista busque en su propia carpeta
+async function fetchAnyList(basePath) {
+    try {
+        const listResult = await fetch(`${basePath}/_list.json`);
+        if (!listResult.ok) return null;
+
+        const list = await listResult.json();
+        const mapPacks = await fetchMapPacks() || {};
+        
+        return await Promise.all(
+            list.map(async (path) => {
+                try {
+                    const levelResult = await fetch(`${basePath}/${path.trim()}.json`);
+                    if (!levelResult.ok) throw new Error("404");
+                    const level = await levelResult.json();
+
+                    // PROTECCIÓN: Si el JSON no tiene records, creamos un array vacío para que no de error
+                    const levelRecords = Array.isArray(level.records) ? level.records : [];
+
+                    return [
+                        {
+                            ...level,
+                            path,
+                            records: levelRecords.sort((a, b) => b.percent - a.percent),
+                        },
+                        null,
+                    ];
+                } catch (err) {
+                    console.error(`Error en el nivel ${path}:`, err);
+                    return [null, path];
+                }
+            })
+        );
+    } catch (err) {
+        console.error("Error cargando la lista:", err);
         return null;
     }
 }
 
 export async function fetchLeaderboard() {
     const list = await fetchList();
+    if (!list) return [null, ['Failed to load list']];
 
     const scoreMap = {};
     const errs = [];
+    
     list.forEach(([level, err], rank) => {
-        if (err) {
-            errs.push(err);
-            return;
-        }
+        if (err || !level) return;
 
-        // Verification
-        const verifier = Object.keys(scoreMap).find(
-            (u) => u.toLowerCase() === level.verifier.toLowerCase(),
-        ) || level.verifier;
-        scoreMap[verifier] ??= {
-            verified: [],
-            completed: [],
-            progressed: [],
-        };
-        const { verified } = scoreMap[verifier];
-        verified.push({
+        const verification = level.verifier;
+        scoreMap[verification] ??= { verified: [], completed: [], progressed: [] };
+        scoreMap[verification].verified.push({
             rank: rank + 1,
             level: level.name,
             score: score(rank + 1, 100, level.percentToQualify),
             link: level.verification,
         });
 
-        // Records
-        level.records.forEach((record) => {
-            const user = Object.keys(scoreMap).find(
-                (u) => u.toLowerCase() === record.user.toLowerCase(),
-            ) || record.user;
-            scoreMap[user] ??= {
-                verified: [],
-                completed: [],
-                progressed: [],
-            };
-            const { completed, progressed } = scoreMap[user];
+        (level.records || []).forEach((record) => {
+            const user = record.user;
+            scoreMap[user] ??= { verified: [], completed: [], progressed: [] };
             if (record.percent === 100) {
-                completed.push({
+                scoreMap[user].completed.push({
                     rank: rank + 1,
                     level: level.name,
                     score: score(rank + 1, 100, level.percentToQualify),
                     link: record.link,
                 });
-                return;
+            } else {
+                scoreMap[user].progressed.push({
+                    rank: rank + 1,
+                    level: level.name,
+                    percent: record.percent,
+                    score: score(rank + 1, record.percent, level.percentToQualify),
+                    link: record.link,
+                });
             }
-
-            progressed.push({
-                rank: rank + 1,
-                level: level.name,
-                percent: record.percent,
-                score: score(rank + 1, record.percent, level.percentToQualify),
-                link: record.link,
-            });
         });
     });
 
-    // Wrap in extra Object containing the user and total score
     const res = Object.entries(scoreMap).map(([user, scores]) => {
-        const { verified, completed, progressed } = scores;
-        const total = [verified, completed, progressed]
-            .flat()
+        const total = [...scores.verified, ...scores.completed, ...scores.progressed]
             .reduce((prev, cur) => prev + cur.score, 0);
-
-        return {
-            user,
-            total: round(total),
-            ...scores,
-        };
+        return { user, total: round(total), ...scores };
     });
 
-    // Sort by total score
     return [res.sort((a, b) => b.total - a.total), errs];
 }
