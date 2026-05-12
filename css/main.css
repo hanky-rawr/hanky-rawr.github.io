@@ -159,9 +159,9 @@ main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* --- MODO DORADO LEADERBOARD (CORREGIDO) --- */
+/* --- MODO DORADO LEADERBOARD (CORREGIDO V2: MÁS ESPACIO) --- */
 
-/* 1. Fondo de la página: Se ve la imagen completa sin degradado encima */
+/* 1. Fondo de la página */
 body.gold-theme {
     background-image: url('../assets/bg2_gd.png') !important;
     background-color: #1a1500; 
@@ -169,20 +169,19 @@ body.gold-theme {
     background-size: cover;
 }
 
-/* 2. Degradado en la parte superior (Encabezado/Header) */
+/* 2. Degradado en el Header */
 body.gold-theme header {
     background: linear-gradient(90deg, #ffd800 0%, #ff7e00 100%) !important;
     border-bottom: 2px solid #000;
 }
 
-/* Aseguramos que el texto del nav sea legible sobre el degradado dorado */
 body.gold-theme header .nav__tab span,
 body.gold-theme header .nav__cta {
     color: #000 !important;
     font-weight: bold;
 }
 
-/* 3. Quitamos el degradado del contenedor principal y el "cuadrado azul" */
+/* 3. Limpieza de contenedores y el "cuadrado azul" */
 body.gold-theme .page-leaderboard-container,
 body.gold-theme .board-container,
 body.gold-theme .page-leaderboard {
@@ -191,33 +190,66 @@ body.gold-theme .page-leaderboard {
     box-shadow: none !important;
 }
 
-/* 4. Estilo de las tarjetas (Lista y Jugador) para que se lea bien sobre el fondo */
-body.gold-theme .board, 
+/* 4. AJUSTE DE TAMAÑO: Caja del Jugador (Mucho más amplia) */
+body.gold-theme .player-container {
+    flex: 2.5 !important; /* Hace que la caja de info sea mucho más ancha que la lista */
+    padding: 20px;
+}
+
 body.gold-theme .player {
-    background-color: rgba(0, 0, 0, 0.85) !important; /* Fondo oscuro sólido para legibilidad */
+    background-color: rgba(0, 0, 0, 0.9) !important; /* Un poco más oscuro para mejor contraste */
     border: 2px solid #ffd800;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    
+    /* ESPACIADO INTERNO */
+    padding: 50px !important; 
+    min-height: 700px; /* Altura mínima para que no se vea pequeña */
+    border-radius: 15px;
 }
 
-/* 5. Colores de texto dentro de la leaderboard */
-body.gold-theme h1, 
-body.gold-theme h2, 
-body.gold-theme h3,
-body.gold-theme .rank p,
-body.gold-theme .total p {
-    color: #ffd800 !important;
+/* 5. Espaciado en las tablas de niveles */
+body.gold-theme .player .table {
+    width: 100%;
+    margin-bottom: 40px;
+    border-spacing: 0 12px; /* Espacio vertical entre cada nivel */
+    border-collapse: separate;
 }
 
-/* Botón de usuario activo (en la lista) */
+body.gold-theme .player .table td {
+    padding: 15px !important; /* Más espacio dentro de cada celda */
+    background-color: rgba(255, 255, 255, 0.05); /* Un toque de brillo a cada fila */
+    border-radius: 5px;
+}
+
+/* 6. Colores y fuentes en la info del jugador */
+body.gold-theme h1 { 
+    font-size: 3rem !important; 
+    margin-bottom: 15px; 
+    color: #ffd800 !important; 
+}
+body.gold-theme h2 { 
+    margin-top: 35px; 
+    font-size: 1.8rem;
+    color: #ffd800 !important; 
+    border-bottom: 2px solid #ffd800; 
+    padding-bottom: 10px; 
+}
+body.gold-theme h3 { 
+    font-size: 1.5rem;
+    color: #ffb400 !important; 
+}
+
+/* 7. Lista de jugadores (izquierda) */
+body.gold-theme .board {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    border: 2px solid #ffd800;
+}
+
+/* Botón activo */
 body.gold-theme .board .user.active button {
     background-color: #ffd800 !important;
 }
-
 body.gold-theme .board .user.active span {
     color: #000 !important;
-}
-
-/* Ajuste para los enlaces de los niveles */
-body.gold-theme .player a {
-    color: #ffb400 !important;
+    font-weight: bold;
 }
