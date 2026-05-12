@@ -159,42 +159,65 @@ main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* --- MODO DORADO LEADERBOARD --- */
+/* --- MODO DORADO LEADERBOARD (CORREGIDO) --- */
+
+/* 1. Fondo de la página: Se ve la imagen completa sin degradado encima */
 body.gold-theme {
-    /* Cambia el fondo por el nuevo asset */
     background-image: url('../assets/bg2_gd.png') !important;
-    background-color: #1a1500; /* Color de seguridad oscuro */
+    background-color: #1a1500; 
     background-attachment: fixed;
     background-size: cover;
 }
 
-/* Aplicar el degradado dorado a los contenedores principales */
-body.gold-theme .page-leaderboard-container {
-    background: linear-gradient(180deg, #ffd800 0%, #ff7e00 100%) !important;
-    min-height: 100vh;
+/* 2. Degradado en la parte superior (Encabezado/Header) */
+body.gold-theme header {
+    background: linear-gradient(90deg, #ffd800 0%, #ff7e00 100%) !important;
+    border-bottom: 2px solid #000;
 }
 
-/* Ajustes para que las tablas y textos resalten sobre el dorado */
+/* Aseguramos que el texto del nav sea legible sobre el degradado dorado */
+body.gold-theme header .nav__tab span,
+body.gold-theme header .nav__cta {
+    color: #000 !important;
+    font-weight: bold;
+}
+
+/* 3. Quitamos el degradado del contenedor principal y el "cuadrado azul" */
+body.gold-theme .page-leaderboard-container,
+body.gold-theme .board-container,
+body.gold-theme .page-leaderboard {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* 4. Estilo de las tarjetas (Lista y Jugador) para que se lea bien sobre el fondo */
 body.gold-theme .board, 
 body.gold-theme .player {
-    background-color: rgba(0, 0, 0, 0.75) !important; /* Fondo oscuro semi-transparente */
+    background-color: rgba(0, 0, 0, 0.85) !important; /* Fondo oscuro sólido para legibilidad */
     border: 2px solid #ffd800;
-    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Color de los textos de títulos */
+/* 5. Colores de texto dentro de la leaderboard */
 body.gold-theme h1, 
 body.gold-theme h2, 
-body.gold-theme h3 {
+body.gold-theme h3,
+body.gold-theme .rank p,
+body.gold-theme .total p {
     color: #ffd800 !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* El botón seleccionado en la lista */
+/* Botón de usuario activo (en la lista) */
 body.gold-theme .board .user.active button {
     background-color: #ffd800 !important;
 }
 
 body.gold-theme .board .user.active span {
-    color: #000 !important; /* Texto negro sobre botón dorado */
+    color: #000 !important;
+}
+
+/* Ajuste para los enlaces de los niveles */
+body.gold-theme .player a {
+    color: #ffb400 !important;
 }
