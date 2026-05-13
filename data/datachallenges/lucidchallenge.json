@@ -1,0 +1,18 @@
+{
+    "id": 140239406,
+    "name": "Lucid challenge",
+    "author": "IHankyI",
+    "creators": ["IHankyI"],
+    "verifier": "IHankyI",
+    "verification": "https://www.youtube.com/watch?v=bwH4xMN9U-s",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "IHankyI",
+            "link": "https://www.youtube.com/watch?v=bwH4xMN9U-s",
+            "percent": "100",
+            "hz": 60
+        }
+    ]
+}
