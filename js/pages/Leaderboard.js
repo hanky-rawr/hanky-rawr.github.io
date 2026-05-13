@@ -45,13 +45,14 @@ export default {
                             </td>
                         </tr>
                     </table>
-                    <div class="player">
-                        <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
-                        <h3>{{ localize(entry.total) }} points</h3>
+                    
+                    <div class="player" v-if="leaderboard.length > 0">
+                        <h1>#{{ selected + 1 }} {{ leaderboard[selected].user }}</h1>
+                        <h3>{{ localize(leaderboard[selected].total) }} points</h3>
                         
-                        <h2 v-if="entry.completed.length > 0">Completed ({{entry.completed.length}})</h2>
-                        <table class="table" v-if="entry.completed.length > 0">
-                            <tr v-for="score in entry.completed">
+                        <h2 v-if="leaderboard[selected].completed.length > 0">Completed ({{leaderboard[selected].completed.length}})</h2>
+                        <table class="table" v-if="leaderboard[selected].completed.length > 0">
+                            <tr v-for="score in leaderboard[selected].completed">
                                 <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
                                     <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
@@ -60,9 +61,9 @@ export default {
                             </tr>
                         </table>
 
-                        <h2 v-if="entry.challenges && entry.challenges.length > 0">Challenges ({{entry.challenges.length}})</h2>
-                        <table class="table" v-if="entry.challenges && entry.challenges.length > 0">
-                            <tr v-for="score in entry.challenges">
+                        <h2 v-if="leaderboard[selected].challenges && leaderboard[selected].challenges.length > 0">Challenges ({{leaderboard[selected].challenges.length}})</h2>
+                        <table class="table" v-if="leaderboard[selected].challenges && leaderboard[selected].challenges.length > 0">
+                            <tr v-for="score in leaderboard[selected].challenges">
                                 <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
                                     <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
@@ -71,9 +72,9 @@ export default {
                             </tr>
                         </table>
 
-                        <h2 v-if="entry.progressed.length > 0">Progressed ({{entry.progressed.length}})</h2>
-                        <table class="table" v-if="entry.progressed.length > 0">
-                            <tr v-for="score in entry.progressed">
+                        <h2 v-if="leaderboard[selected].progressed.length > 0">Progressed ({{leaderboard[selected].progressed.length}})</h2>
+                        <table class="table" v-if="leaderboard[selected].progressed.length > 0">
+                            <tr v-for="score in leaderboard[selected].progressed">
                                 <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
                                     <a class="type-label-lg" target="_blank" :href="score.link">{{ score.percent }}% {{ score.level }}</a>
@@ -86,11 +87,6 @@ export default {
             </div>
         </main>
     `,
-    computed: {
-        entry() {
-            return this.leaderboard[this.selected];
-        },
-    },
     async mounted() {
         document.body.classList.add('gold-theme');
         const [leaderboard, err] = await fetchLeaderboard();
