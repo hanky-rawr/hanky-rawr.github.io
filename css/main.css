@@ -140,7 +140,7 @@ main > div:nth-child(2) {
     background-color: rgba(0, 0, 0, 0.78) !important; /* Fondo oscuro interno para leer el texto sin problemas */
     
     /* CAMBIO AQUÍ: Ampliado el padding para alejar las letras del marco */
-    padding: 55px 60px !important; 
+    padding: 65px 70px !important; 
     
     margin: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
