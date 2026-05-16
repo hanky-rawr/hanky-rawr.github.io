@@ -151,10 +151,10 @@ main > div:nth-child(2) {
 .level-container .level::before {
     content: "";
     position: absolute;
-    top: -15px;    /* Mantiene tu tamaño calibrado intacto */
+    top: -20px;    /* Mantiene tu tamaño calibrado intacto */
     left: -15px;
     right: -15px;
-    bottom: -15px;
+    bottom: -20px;
     background-image: url('../assets/frame.png');
     background-size: 100% 100%; /* Estira tu marco completo para que encaje al milímetro */
     background-repeat: no-repeat;
