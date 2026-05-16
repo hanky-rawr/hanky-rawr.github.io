@@ -149,11 +149,11 @@ main > div:nth-child(2) {
     content: "";
     position: absolute;
     top: -12px;    /* Lo expande un poquito hacia afuera de la caja */
-    left: -50px;
-    right: -50px;
+    left: -12px;
+    right: -12px;
     bottom: -12px;
     background-image: url('../assets/frame.png');
-    background-size: 120% 120%; /* Estira tu marco completo para que encaje al milímetro */
+    background-size: 90% 90%; /* Estira tu marco completo para que encaje al milímetro */
     background-repeat: no-repeat;
     background-position: center;
     pointer-events: none; /* Los clics pasan a través de la imagen (puedes clickear el video/links de abajo) */
