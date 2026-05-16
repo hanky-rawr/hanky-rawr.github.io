@@ -148,12 +148,12 @@ main > div:nth-child(2) {
 .level-container .level::before {
     content: "";
     position: absolute;
-    top: -12px;    /* Lo expande un poquito hacia afuera de la caja */
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
+    top: -15px;    /* Lo expande un poquito hacia afuera de la caja */
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
     background-image: url('../assets/frame.png');
-    background-size: 90% 90%; /* Estira tu marco completo para que encaje al milímetro */
+    background-size: 100% 100%; /* Estira tu marco completo para que encaje al milímetro */
     background-repeat: no-repeat;
     background-position: center;
     pointer-events: none; /* Los clics pasan a través de la imagen (puedes clickear el video/links de abajo) */
