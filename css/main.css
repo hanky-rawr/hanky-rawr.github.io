@@ -135,6 +135,19 @@ main > div:nth-child(2) {
     border: none !important;
 }
 
+/* MARCO PERSONALIZADO ESTILO GEOMETRY DASH PARA LA INFO DEL NIVEL */
+.level-container .level {
+    background-color: rgba(0, 0, 0, 0.78) !important; /* Fondo oscuro sólido interno para leer bien las letras */
+    padding: 35px !important;
+    margin: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    
+    /* Configuración del marco de imágenes */
+    border: 28px solid transparent; /* El grosor visible de tu marco en pantalla */
+    border-image-source: url('../assets/frame.png');
+    border-image-slice: 75 repeat; /* Corta la imagen conservando esquinas sin estirarlas feo */
+}
+
 /* Sombra de texto para legibilidad sobre el fondo de GD */
 main > div:nth-child(2) h1,
 main > div:nth-child(2) h2,
@@ -182,16 +195,15 @@ body.gold-theme header .nav__cta {
 }
 
 /* 3. CAPA FANTASMA: Ahora ocupa toda la página */
-/* Esta capa está detrás de las tablas pero delante del bg2_gd */
 body.gold-theme .page-leaderboard-container {
-    background: rgba(0, 0, 0, 0.4) !important; /* Oscurece un poco el fondo globalmente */
+    background: rgba(0, 0, 0, 0.4) !important; 
     min-height: 100vh;
     box-shadow: none !important;
 }
 
 body.gold-theme .page-leaderboard {
-    background: transparent !important; /* Quitamos el recuadro pequeño "fantasma" */
-    max-width: 100%; /* Permitimos que se expanda */
+    background: transparent !important; 
+    max-width: 100%; 
     padding: 20px;
 }
 
@@ -203,7 +215,7 @@ body.gold-theme .player-container {
 }
 
 body.gold-theme .player {
-    background-color: rgba(0, 0, 0, 0.9) !important; /* Caja sólida */
+    background-color: rgba(0, 0, 0, 0.9) !important; 
     border: 2px solid #ffd800;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
     padding: 50px !important; 
